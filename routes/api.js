@@ -52,7 +52,6 @@ router.post('/neo-mail/verifyresp', function(req, res, next) {
     res.sendStatus(404);
     return;
   }
-  delete challenges[message.from];
   profileService.query_account_profile(message.address, function(err, profile) {
     if (err) {
       res.send({ result: false, error: err });
@@ -71,6 +70,7 @@ router.post('/neo-mail/verifyresp', function(req, res, next) {
         res.send({ result: false, error: err });
       } else {
         res.send({ result: true });
+        delete challenges[message.from];
       }
     });      
   });
